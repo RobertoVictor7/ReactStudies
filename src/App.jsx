@@ -29,10 +29,9 @@ const mario = {
 
 const totalGasto = (dados) => {
   const preco = dados.compras
-  const precoMap = preco.map(valor => +valor.preco.replace('R$', ''));
-  const reduce = precoMap.reduce((acumulador, item) => acumulador + item)
+  const precoMap = preco.map(valor => Number(valor.preco.replace('R$ ', ''))).reduce((acumulador, item) => acumulador + item);
   
-  return reduce
+  return precoMap
 }
 
 const App = () => {
@@ -45,7 +44,7 @@ const App = () => {
      <span style={{ color: dados.ativa ? 'green' : 'red'}}> {dados.ativa ? 'ativa' : 'inativa'} </span>
     </p>
     
-    <p>Total gasto: {totalGasto(dados)}</p>
+    <p>Total gasto: R${totalGasto(dados)}</p>
     <p>{totalGasto(dados) > 10000 && 'você está gastando demais'}</p>
   </div>;
 };
