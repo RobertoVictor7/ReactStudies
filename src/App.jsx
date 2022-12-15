@@ -1,40 +1,53 @@
 import React from "react";
 
-const titulo = <h1>Esse é um título</h1>;
+// Mostre os dados da aplicação, como aprensetado no vídeo
+// Não utilize CSS externo, use o style para mudar as cores
+// Se a situação estiver ativa pinte de verde, inativa vermelho
+// Se o gasto for maior que 10000 mostre uma mensagem
+const luana = {
+  cliente: 'Luana',
+  idade: 27,
+  compras: [
+    { nome: 'Notebook', preco: 'R$ 2500' },
+    { nome: 'Geladeira', preco: 'R$ 3000' },
+    { nome: 'Smartphone', preco: 'R$ 1500' },
+  ],
+  ativa: true,
+};
+
+const mario = {
+  cliente: 'Mario',
+  idade: 31,
+  compras: [
+    { nome: 'Notebook', preco: 'R$ 2500' },
+    { nome: 'Geladeira', preco: 'R$ 3000' },
+    { nome: 'Smartphone', preco: 'R$ 1500' },
+    { nome: 'Guitarra', preco: 'R$ 3500' },
+  ],
+  ativa: false,
+};
+
+const totalGasto = (dados) => {
+  const preco = dados.compras
+  const precoMap = preco.map(valor => +valor.preco.replace('R$', ''));
+  const reduce = precoMap.reduce((acumulador, item) => acumulador + item)
+  
+  return reduce
+}
 
 const App = () => {
-  const nome = "Victor";
-  const ativo = true;
+  const dados = mario;
 
-  function soma(x = 1) {
-    return 1 + 1 + x;
-  }
-
-  const carro = {
-    marca: "Ford",
-    rodas: 4,
-  };
-
-  const estiloP = {
-    color: "blue",
-    fontSize: "2rem",
-  };
-
-  return (
-    <>
-      {titulo}
-      {soma(5)}
-      <div>
-        <a className="ativo" href="http://google.com.br">
-          Google
-        </a>
-        <label htmlFor="nome">Nome</label>
-        <input type="text" id="nome" />
-        <p className={ativo ? "ativo" : "inativo"}>{nome}</p>
-      </div>
-      <p style={estiloP}>{carro.marca}</p>
-    </>
-  );
+  return <div>
+    <p>Nome: {dados.cliente}</p>
+    <p>Idade: {dados.idade} </p>
+    <p>Situação: 
+     <span style={{ color: dados.ativa ? 'green' : 'red'}}> {dados.ativa ? 'ativa' : 'inativa'} </span>
+    </p>
+    
+    <p>Total gasto: {totalGasto(dados)}</p>
+    <p>{totalGasto(dados) > 10000 && 'você está gastando demais'}</p>
+  </div>;
 };
 
 export default App;
